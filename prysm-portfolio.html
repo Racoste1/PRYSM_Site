@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prysm — Portfolio & Références</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f4f0e6; --dark: #1a1a14; --green: #2e5c3a;
+      --green-light: #4a8c5c; --green-pale: #e8f0ea;
+      --gold: #c8a84b; --text: #2c2c24; --muted: #6a6a58;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--text); font-family: "DM Sans", sans-serif; overflow-x: hidden; }
+    body::after { content: ""; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity:.6; }
+
+    /* NAV */
+    nav { position: fixed; top:0; left:0; right:0; z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:0 4rem; height:80px; background:rgba(244,240,230,0.94); backdrop-filter:blur(14px); border-bottom:1px solid rgba(46,92,58,.12); transition:box-shadow .3s; }
+    nav.scrolled { box-shadow:0 4px 32px rgba(26,26,20,.08); }
+    .nav-logo { display:flex; flex-direction:column; gap:.1rem; text-decoration:none; }
+    .nav-logo-main { font-family:"Playfair Display",serif; font-size:1.6rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--green); line-height:1; }
+    .nav-logo-sub { font-size:.6rem; letter-spacing:.38em; text-transform:uppercase; color:var(--gold); font-weight:500; }
+    .nav-links { display:flex; align-items:center; gap:.5rem; list-style:none; }
+    .nav-links li a { text-decoration:none; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; font-weight:500; color:var(--text); padding:.5rem 1.1rem; transition:color .2s; position:relative; }
+    .nav-links li a::after { content:""; position:absolute; bottom:0; left:1.1rem; right:1.1rem; height:1px; background:var(--green); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+    .nav-links li a:hover { color:var(--green); }
+    .nav-links li a:hover::after { transform:scaleX(1); }
+    .nav-cta { background:var(--green); color:var(--cream)!important; padding:.6rem 1.5rem!important; border-radius:2px; }
+    .nav-cta::after { display:none!important; }
+    .nav-cta:hover { background:var(--green-light)!important; }
+    .nav-dropdown { position:relative; }
+    .dropdown-menu { display:none; position:absolute; top:calc(100% + 8px); left:0; background:var(--cream); border:1px solid rgba(46,92,58,.14); box-shadow:0 12px 40px rgba(26,26,20,.12); list-style:none; min-width:240px; z-index:2000; padding:.5rem 0; }
+    .dropdown-menu li a { display:block; padding:.75rem 1.4rem; font-size:.74rem; letter-spacing:.15em; text-transform:uppercase; color:var(--text)!important; white-space:nowrap; font-weight:500; }
+    .dropdown-menu li a:hover { background:var(--green-pale); color:var(--green)!important; }
+    .dropdown-menu li a::after { display:none!important; }
+    .nav-dropdown:hover .dropdown-menu { display:block; }
+
+    /* HERO BANNER */
+    .page-hero { padding: 140px 4rem 80px; background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-tag { font-size:.68rem; letter-spacing:.42em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; }
+    .hero-tag::before { content:""; display:block; width:32px; height:1px; background:var(--gold); }
+    .page-hero h1 { font-family:"Playfair Display",serif; font-size:clamp(3rem,4vw,4.5rem); font-weight:900; line-height:1.04; color:var(--cream); }
+    .page-hero h1 em { font-style:italic; color:var(--gold); }
+    .page-hero p { font-size:1rem; line-height:1.85; color:rgba(244,240,230,.55); font-weight:300; margin-top:1.2rem; max-width:46ch; }
+    .hero-stats { display:flex; flex-direction:column; gap:1rem; }
+    .hero-stat-box { padding:1.5rem 2rem; border:1px solid rgba(244,240,230,.07); display:flex; align-items:center; gap:1.5rem; }
+    .hero-stat-num { font-family:"Playfair Display",serif; font-size:2.2rem; font-weight:900; color:var(--gold); line-height:1; }
+    .hero-stat-label { font-size:.8rem; color:rgba(244,240,230,.45); font-weight:300; }
+
+    /* FILTRES */
+    .filters { padding:3rem 4rem; display:flex; align-items:center; gap:1rem; border-bottom:1px solid rgba(46,92,58,.1); flex-wrap:wrap; }
+    .filter-label { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); margin-right:.5rem; }
+    .filter-btn { padding:.45rem 1.2rem; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; border:1px solid rgba(46,92,58,.2); background:transparent; cursor:pointer; font-family:"DM Sans",sans-serif; color:var(--muted); transition:.2s; border-radius:2px; }
+    .filter-btn:hover, .filter-btn.active { background:var(--green); color:var(--cream); border-color:var(--green); }
+
+    /* GRILLE PROJETS */
+    .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; padding:4rem; gap:2rem; }
+    .project-card { background:white; border:1px solid rgba(46,92,58,.1); overflow:hidden; transition:transform .3s, box-shadow .3s; cursor:pointer; opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease, box-shadow .3s; }
+    .project-card.visible { opacity:1; transform:none; }
+    .project-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(46,92,58,.12); }
+    .project-card.featured { grid-column:span 2; }
+    .project-visual { height:220px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .project-card.featured .project-visual { height:300px; }
+    .project-visual-bg { position:absolute; inset:0; }
+    .project-visual-content { position:relative; z-index:2; text-align:center; }
+    .project-icon { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
+    .project-icon svg { width:28px; height:28px; }
+    .project-body { padding:2rem; }
+    .project-tags { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .project-tag { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; padding:.25rem .7rem; border-radius:2px; font-weight:500; }
+    .tag-green { background:rgba(46,92,58,.1); color:var(--green); }
+    .tag-gold { background:rgba(200,168,75,.12); color:#9a7a28; }
+    .tag-dark { background:rgba(26,26,20,.08); color:var(--dark); }
+    .project-title { font-family:"Playfair Display",serif; font-size:1.2rem; font-weight:700; color:var(--dark); margin-bottom:.7rem; line-height:1.3; }
+    .project-card.featured .project-title { font-size:1.5rem; }
+    .project-desc { font-size:.85rem; line-height:1.75; color:var(--muted); font-weight:300; margin-bottom:1.5rem; }
+    .project-meta { display:flex; align-items:center; justify-content:space-between; padding-top:1.2rem; border-top:1px solid rgba(46,92,58,.08); }
+    .project-client { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    .project-result { font-size:.75rem; font-weight:600; color:var(--green); }
+    .project-link { font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:1px; }
+
+    /* RÉSULTATS CHIFFRÉS */
+    .results-section { background:var(--dark); padding:7rem 4rem; }
+    .results-header { text-align:center; margin-bottom:4rem; }
+    .results-header .eyebrow { font-size:.68rem; letter-spacing:.42em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
+    .results-header h2 { font-family:"Playfair Display",serif; font-size:2.5rem; font-weight:700; color:var(--cream); }
+    .results-header h2 em { font-style:italic; color:var(--gold); }
+    .results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:rgba(255,255,255,.04); }
+    .result-item { background:var(--dark); padding:3rem 2rem; text-align:center; }
+    .result-num { font-family:"Playfair Display",serif; font-size:3rem; font-weight:900; color:var(--gold); line-height:1; }
+    .result-desc { font-size:.82rem; line-height:1.6; color:rgba(244,240,230,.45); font-weight:300; margin-top:.8rem; }
+
+    /* CERTIFICATIONS */
+    .certs-section { padding:6rem 4rem; }
+    .certs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:3rem; }
+    .cert-card { padding:2rem; border:1px solid rgba(46,92,58,.12); display:flex; flex-direction:column; align-items:center; text-align:center; gap:1rem; transition:.25s; }
+    .cert-card:hover { background:var(--green-pale); border-color:var(--green); }
+    .cert-icon { width:56px; height:56px; background:var(--green-pale); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .cert-icon svg { width:24px; height:24px; stroke:var(--green); }
+    .cert-name { font-family:"Playfair Display",serif; font-size:1rem; font-weight:700; color:var(--dark); }
+    .cert-desc { font-size:.8rem; line-height:1.6; color:var(--muted); font-weight:300; }
+
+    /* TEMOIGNAGES */
+    .temoignages-section { background:var(--green); padding:7rem 4rem; }
+    .temo-header { margin-bottom:3.5rem; }
+    .temo-header .eyebrow { font-size:.68rem; letter-spacing:.42em; text-transform:uppercase; color:rgba(200,168,75,.8); margin-bottom:.8rem; }
+    .temo-header h2 { font-family:"Playfair Display",serif; font-size:2.2rem; font-weight:700; color:var(--cream); }
+    .temo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+    .temo-card { background:rgba(255,255,255,.06); padding:2.5rem; border:1px solid rgba(255,255,255,.08); position:relative; }
+    .temo-card::before { content:"C"; font-family:"Playfair Display",serif; font-size:4rem; color:var(--gold); opacity:.25; position:absolute; top:1rem; left:1.5rem; line-height:1; }
+    .temo-text { font-size:.9rem; line-height:1.8; color:rgba(244,240,230,.75); font-weight:300; padding-top:2rem; font-style:italic; margin-bottom:1.5rem; }
+    .temo-author { font-family:"Playfair Display",serif; font-size:.95rem; font-weight:700; color:var(--cream); }
+    .temo-role { font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(200,168,75,.7); margin-top:.3rem; }
+
+    /* CTA */
+    .cta-section { padding:6rem 4rem; display:flex; align-items:center; justify-content:space-between; gap:3rem; border-bottom:1px solid rgba(46,92,58,.1); }
+    .cta-text h2 { font-family:"Playfair Display",serif; font-size:2.2rem; font-weight:700; color:var(--dark); margin-bottom:.5rem; }
+    .cta-text h2 em { color:var(--green); font-style:italic; }
+    .cta-text p { font-size:.92rem; color:var(--muted); font-weight:300; }
+    .btn-primary { background:var(--green); color:var(--cream); padding:.9rem 2.4rem; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; border:none; cursor:pointer; font-family:"DM Sans",sans-serif; font-weight:500; text-decoration:none; display:inline-block; transition:.25s; }
+    .btn-primary:hover { background:var(--green-light); transform:translateY(-2px); }
+    .btn-outline { border:1px solid var(--green); color:var(--green); padding:.9rem 2.4rem; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; background:transparent; cursor:pointer; font-family:"DM Sans",sans-serif; font-weight:500; text-decoration:none; display:inline-block; transition:.25s; }
+    .btn-outline:hover { background:var(--green); color:var(--cream); }
+
+    /* FOOTER */
+    footer { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; padding:4rem 4rem 2rem; }
+    .footer-logo-main { font-family:"Playfair Display",serif; font-size:1.4rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--green); margin-bottom:.3rem; }
+    .footer-logo-sub { font-size:.62rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem; }
+    .footer-desc { font-size:.82rem; line-height:1.75; color:var(--muted); font-weight:300; }
+    .footer-col-title { font-size:.68rem; letter-spacing:.35em; text-transform:uppercase; color:var(--green); font-weight:600; margin-bottom:1.2rem; }
+    .footer-links { list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .footer-links li a { text-decoration:none; font-size:.82rem; color:var(--muted); transition:color .2s; }
+    .footer-links li a:hover { color:var(--green); }
+    .footer-bottom { padding:1.5rem 4rem; border-top:1px solid rgba(46,92,58,.08); display:flex; align-items:center; justify-content:space-between; }
+    .footer-bottom p { font-size:.72rem; color:var(--muted); }
+
+    /* UTILS */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .d1 { transition-delay:.1s; } .d2 { transition-delay:.2s; } .d3 { transition-delay:.3s; }
+    .eyebrow { font-size:.68rem; letter-spacing:.42em; text-transform:uppercase; color:var(--gold); }
+    .block-title { font-family:"Playfair Display",serif; font-size:clamp(2rem,3vw,2.6rem); font-weight:700; line-height:1.1; color:var(--dark); }
+    .block-title em { font-style:italic; color:var(--green); }
+
+    @media (max-width:900px) {
+      nav { padding:0 2rem; }
+      .page-hero { grid-template-columns:1fr; padding:120px 2rem 4rem; }
+      .filters { padding:2rem; }
+      .projects-grid { grid-template-columns:1fr; padding:2rem; }
+      .project-card.featured { grid-column:span 1; }
+      .results-grid, .certs-grid { grid-template-columns:1fr 1fr; }
+      .temo-grid { grid-template-columns:1fr; }
+      .cta-section { flex-direction:column; padding:4rem 2rem; }
+      footer { grid-template-columns:1fr 1fr; padding:3rem 2rem 1.5rem; }
+      .footer-bottom { flex-direction:column; gap:.5rem; text-align:center; padding:1.5rem 2rem; }
+      .results-section, .certs-section, .temoignages-section { padding:5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="prysm-accueil-conseil.html" class="nav-logo">
+    <span class="nav-logo-main">Prysm</span>
+    <span class="nav-logo-sub">Groupe · Conseil &amp; Transition</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="prysm-accueil-conseil.html">Accueil</a></li>
+    <li><a href="prysm-groupe.html">Le Groupe</a></li>
+    <li class="nav-dropdown">
+      <a href="#">Nos filiales ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="revaloris.html">Revaloris — Déchets &amp; Territoire</a></li>
+        <li><a href="revaloris-rse.html">Revaloris RSE</a></li>
+        <li><a href="revaloris-ferme.html">Revaloris Ferme</a></li>
+      </ul>
+    </li>
+    <li><a href="#" class="active">Portfolio</a></li>
+    <li><a href="prysm-accueil-conseil.html#contact" class="nav-cta">Nous contacter</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div>
+    <div class="hero-tag">Portfolio &amp; Références</div>
+    <h1>Nos projets,<br/>nos <em>résultats.</em></h1>
+    <p>35 territoires et entreprises accompagnés depuis 2018. Chaque projet est une transformation concrète, mesurable et durable.</p>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat-box">
+      <div class="hero-stat-num">35</div>
+      <div class="hero-stat-label">Clients accompagnés<br/>collectivités &amp; entreprises</div>
+    </div>
+    <div class="hero-stat-box">
+      <div class="hero-stat-num">94%</div>
+      <div class="hero-stat-label">Taux de satisfaction<br/>enquête post-mission</div>
+    </div>
+    <div class="hero-stat-box">
+      <div class="hero-stat-num">12</div>
+      <div class="hero-stat-label">Certifications obtenues<br/>pour nos clients</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTRES -->
+<div class="filters">
+  <span class="filter-label">Filtrer :</span>
+  <button class="filter-btn active" onclick="filterProjects('all',this)">Tous les projets</button>
+  <button class="filter-btn" onclick="filterProjects('collectivite',this)">Collectivités</button>
+  <button class="filter-btn" onclick="filterProjects('entreprise',this)">Entreprises</button>
+  <button class="filter-btn" onclick="filterProjects('rse',this)">RSE &amp; CSRD</button>
+  <button class="filter-btn" onclick="filterProjects('dechet',this)">Gestion déchets</button>
+  <button class="filter-btn" onclick="filterProjects('agricole',this)">Agricole</button>
+</div>
+
+<!-- PROJETS -->
+<div class="projects-grid" id="projectsGrid">
+
+  <!-- Projet 1 — Featured -->
+  <div class="project-card featured reveal" data-category="collectivite rse">
+    <div class="project-visual">
+      <div class="project-visual-bg" style="background:linear-gradient(135deg,var(--dark) 0%,var(--green) 100%)"></div>
+      <div class="project-visual-content">
+        <div class="project-icon" style="background:rgba(200,168,75,.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <p style="font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,240,230,.5);margin-top:.5rem">Communauté de Communes</p>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">
+        <span class="project-tag tag-green">Collectivité</span>
+        <span class="project-tag tag-gold">RSE Territoriale</span>
+        <span class="project-tag tag-dark">Label TETE</span>
+      </div>
+      <h3 class="project-title">Transition écologique de la CC du Rhône Sud — 14 communes, 42 000 habitants</h3>
+      <p class="project-desc">Diagnostic territorial complet, feuille de route sur 5 ans, accompagnement à l'obtention du label Territoire Engagé Transition Écologique. Mise en place d'une gouvernance environnementale et d'un tableau de bord de suivi pour les élus.</p>
+      <div class="project-meta">
+        <span class="project-client">CC Rhône Sud · 2023–2024</span>
+        <span class="project-result">↑ 62% taux valorisation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projet 2 -->
+  <div class="project-card reveal d1" data-category="entreprise rse">
+    <div class="project-visual">
+      <div class="project-visual-bg" style="background:linear-gradient(135deg,#2a3d2e 0%,#4a8c5c 100%)"></div>
+      <div class="project-visual-content">
+        <div class="project-icon" style="background:rgba(200,168,75,.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">
+        <span class="project-tag tag-green">Entreprise</span>
+        <span class="project-tag tag-gold">CSRD</span>
+      </div>
+      <h3 class="project-title">Premier rapport CSRD — Manufacture Lefebvre</h3>
+      <p class="project-desc">Accompagnement complet pour la publication du premier rapport de durabilité conforme à la directive CSRD. Bilan carbone, double matérialité et indicateurs ESRS.</p>
+      <div class="project-meta">
+        <span class="project-client">Manufacture Lefebvre · 2024</span>
+        <span class="project-result">Rapport publié en 4 mois</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projet 3 -->
+  <div class="project-card reveal d1" data-category="dechet collectivite">
+    <div class="project-visual">
+      <div class="project-visual-bg" style="background:linear-gradient(135deg,#1a2e1e 0%,#2e5c3a 100%)"></div>
+      <div class="project-visual-content">
+        <div class="project-icon" style="background:rgba(255,255,255,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.6"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">
+        <span class="project-tag tag-green">Collectivité</span>
+        <span class="project-tag tag-dark">Déchets</span>
+      </div>
+      <h3 class="project-title">Stratégie déchets Mairie de Beauregard</h3>
+      <p class="project-desc">Audit des flux de déchets, réduction de 35% des coûts de gestion et sélection d'un prestataire conforme aux objectifs de la loi AGEC.</p>
+      <div class="project-meta">
+        <span class="project-client">Mairie Beauregard · 2023</span>
+        <span class="project-result">−35% coûts gestion</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projet 4 -->
+  <div class="project-card reveal" data-category="agricole">
+    <div class="project-visual">
+      <div class="project-visual-bg" style="background:linear-gradient(135deg,#2d3a1a 0%,#6a8c3a 100%)"></div>
+      <div class="project-visual-content">
+        <div class="project-icon" style="background:rgba(200,168,75,.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6"><path d="M12 22V12m0 0C12 7 7 4 2 6c0 6 4 10 10 10zm0 0c0-5 5-8 10-6-0 6-4 10-10 10z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">
+        <span class="project-tag tag-green">Agricole</span>
+        <span class="project-tag tag-gold">Économie circulaire</span>
+      </div>
+      <h3 class="project-title">Agriculture régénératrice — Domaine Vidal</h3>
+      <p class="project-desc">Conseil en transition vers l'agriculture régénératrice, valorisation des biodéchets en compost certifié NF, accompagnement à la labellisation HVE.</p>
+      <div class="project-meta">
+        <span class="project-client">Domaine Vidal · 2023–2024</span>
+        <span class="project-result">Label HVE obtenu</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projet 5 -->
+  <div class="project-card reveal d1" data-category="entreprise rse dechet">
+    <div class="project-visual">
+      <div class="project-visual-bg" style="background:linear-gradient(135deg,#1a1a14 0%,#3d3520 100%)"></div>
+      <div class="project-visual-content">
+        <div class="project-icon" style="background:rgba(200,168,75,.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">
+        <span class="project-tag tag-gold">RSE</span>
+        <span class="project-tag tag-dark">Formation</span>
+      </div>
+      <h3 class="project-title">Formation RSE &amp; sensibilisation équipes — Groupe Atelier Moreau</h3>
+      <p class="project-desc">Programme de formation sur 3 mois pour 45 collaborateurs, déploiement d'une politique de gestion durable interne et rédaction de la charte environnementale.</p>
+      <div class="project-meta">
+        <span class="project-client">Atelier Moreau SAS · 2024</span>
+        <span class="project-result">45 collaborateurs formés</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projet 6 -->
+  <div class="project-card reveal d2" data-category="collectivite dechet">
+    <div class="project-visual">
+      <div class="project-visual-bg" style="background:linear-gradient(135deg,#0d2015 0%,#2e5c3a 100%)"></div>
+      <div class="project-visual-content">
+        <div class="project-icon" style="background:rgba(255,255,255,.07)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(244,240,230,.7)" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">
+        <span class="project-tag tag-green">Collectivité</span>
+        <span class="project-tag tag-dark">Plan Climat</span>
+      </div>
+      <h3 class="project-title">Plan Climat Air Énergie Territorial — Syndicat Intercommunal Loire Verte</h3>
+      <p class="project-desc">Élaboration du PCAET, concertation citoyenne, définition des 28 actions prioritaires et mise en place du suivi annuel avec tableau de bord.</p>
+      <div class="project-meta">
+        <span class="project-client">SI Loire Verte · 2022–2023</span>
+        <span class="project-result">28 actions déployées</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- RÉSULTATS CHIFFRÉS -->
+<section class="results-section">
+  <div class="results-header reveal">
+    <p class="eyebrow" style="margin-bottom:.8rem">Impact mesurable</p>
+    <h2>Des résultats <em>concrets</em></h2>
+  </div>
+  <div class="results-grid">
+    <div class="result-item reveal">
+      <div class="result-num">−38%</div>
+      <div class="result-desc">Réduction moyenne des coûts de gestion des déchets chez nos clients collectivités</div>
+    </div>
+    <div class="result-item reveal d1">
+      <div class="result-num">12</div>
+      <div class="result-desc">Certifications et labels environnementaux obtenus (ISO 14001, HVE, TETE, Bas-Carbone)</div>
+    </div>
+    <div class="result-item reveal d2">
+      <div class="result-num">4 mois</div>
+      <div class="result-desc">Délai moyen de publication d'un premier rapport RSE/CSRD pour nos clients entreprises</div>
+    </div>
+    <div class="result-item reveal d3">
+      <div class="result-num">100%</div>
+      <div class="result-desc">Des clients accompagnés ont renouvelé ou étendu leur mission avec Prysm</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section">
+  <p class="eyebrow reveal" style="margin-bottom:.8rem">Notre expertise</p>
+  <h2 class="block-title reveal">Certifications &amp;<br/><em>labels maîtrisés</em></h2>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="cert-name">ISO 14001</div>
+      <div class="cert-desc">Système de management environnemental — accompagnement complet à la certification</div>
+    </div>
+    <div class="cert-card reveal d1">
+      <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+      <div class="cert-name">Label TETE</div>
+      <div class="cert-desc">Territoire Engagé Transition Écologique — dédié aux collectivités territoriales</div>
+    </div>
+    <div class="cert-card reveal d2">
+      <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 22V12m0 0C12 7 7 4 2 6c0 6 4 10 10 10zm0 0c0-5 5-8 10-6-0 6-4 10-10 10z"/></svg></div>
+      <div class="cert-name">Label HVE</div>
+      <div class="cert-desc">Haute Valeur Environnementale — pour les exploitations agricoles engagées</div>
+    </div>
+    <div class="cert-card reveal d3">
+      <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="cert-name">Reporting CSRD</div>
+      <div class="cert-desc">Directive européenne — publication du rapport de durabilité conforme ESRS</div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="temoignages-section">
+  <div class="temo-header reveal">
+    <p class="eyebrow">Ils témoignent</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--cream);margin-top:.8rem">Ce que disent <em style="color:var(--gold);font-style:italic">nos clients</em></h2>
+  </div>
+  <div class="temo-grid">
+    <div class="temo-card reveal">
+      <p class="temo-text">"Prysm nous a accompagnés de A à Z dans notre démarche RSE. En 4 mois, nous avions notre premier rapport CSRD complet. Une équipe rigoureuse, disponible et vraiment impliquée dans notre réussite."</p>
+      <p class="temo-author">Marie Lefebvre</p>
+      <p class="temo-role">Directrice RSE — Manufacture Lefebvre</p>
+    </div>
+    <div class="temo-card reveal d1">
+      <p class="temo-text">"Le diagnostic territorial de Prysm a révélé des opportunités insoupçonnées. Leur approche concrète, sans jargon, a convaincu jusqu'aux élus les plus réticents. Aujourd'hui nous avons notre label TETE."</p>
+      <p class="temo-author">Jean-Marc Duval</p>
+      <p class="temo-role">DGS — CC du Rhône Sud</p>
+    </div>
+    <div class="temo-card reveal d2">
+      <p class="temo-text">"Grâce à Revaloris Ferme, nos biodéchets sont devenus une ressource. Le compost certifié NF a transformé notre exploitation et notre relation avec le territoire. Je recommande sans hésitation."</p>
+      <p class="temo-author">Sophie Vidal</p>
+      <p class="temo-role">Gérante — Domaine Vidal Agricole</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-text">
+    <h2>Votre projet mérite<br/><em>un expert dédié.</em></h2>
+    <p>Diagnostic gratuit sous 48h — collectivité, entreprise ou organisme public.</p>
+  </div>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <a href="prysm-accueil-conseil.html#contact" class="btn-primary">Demander un diagnostic →</a>
+    <a href="prysm-groupe.html" class="btn-outline">Découvrir le groupe</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo-main">Prysm</div>
+    <div class="footer-logo-sub">Groupe · Conseil &amp; Transition Écologique</div>
+    <p class="footer-desc">Prysm accompagne les collectivités et les entreprises dans leur transformation écologique — stratégie RSE, gestion durable, certification verte.</p>
+  </div>
+  <div>
+    <p class="footer-col-title">Navigation</p>
+    <ul class="footer-links">
+      <li><a href="prysm-accueil-conseil.html">Accueil</a></li>
+      <li><a href="prysm-groupe.html">Le Groupe</a></li>
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="prysm-accueil-conseil.html#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-col-title">Nos filiales</p>
+    <ul class="footer-links">
+      <li><a href="revaloris.html">Revaloris</a></li>
+      <li><a href="revaloris-rse.html">Revaloris RSE</a></li>
+      <li><a href="revaloris-ferme.html">Revaloris Ferme</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-col-title">Contact</p>
+    <ul class="footer-links">
+      <li><a href="mailto:contact@prysm.fr">contact@prysm.fr</a></li>
+      <li><a href="tel:+33400000000">+33 (0)4 00 00 00 00</a></li>
+      <li>Lyon, France</li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 Groupe Prysm. Tous droits réservés.</p>
+  <p>Agence de conseil en transition écologique &amp; RSE</p>
+</div>
+
+<script>
+  // Nav scroll
+  window.addEventListener("scroll", () => {
+    document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 20);
+  });
+
+  // Reveal
+  document.querySelectorAll(".reveal, .project-card").forEach(el => {
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.1 }).observe(el);
+  });
+
+  // Filter
+  function filterProjects(cat, btn) {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".project-card").forEach(card => {
+      const cats = card.getAttribute("data-category") || "";
+      card.style.display = (cat === "all" || cats.includes(cat)) ? "" : "none";
+    });
+  }
+</script>
+</body>
+</html>
